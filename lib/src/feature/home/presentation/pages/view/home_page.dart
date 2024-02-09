@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage>
       length: 2,
       vsync: this,
     );
+
+    provideOnce<HomeBloc>(context).add(const HomeEvent.refresh());
+
     super.initState();
   }
 
@@ -29,47 +32,6 @@ class _HomePageState extends State<HomePage>
     super.dispose();
     _model.dispose();
   }
-
-  final dartMap = {
-    "id": 24,
-    "name": "Manthan Khandale",
-    "score": 7.6,
-    "socials": null,
-    "hobbies": [
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-      "Filmmaking",
-      "Music",
-    ],
-    "isFlutterCool": true,
-  };
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -136,15 +98,23 @@ class _HomePageState extends State<HomePage>
                   ],
                 ),
                 Flexible(
-                  child: TabBarView(
-                    controller: _model.tabController,
-                    children: [
-                      _RawBody(
-                        jsonData: jsonEncode(dartMap),
-                        scrollController: _model.rawScrollController,
+                  child: BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) => state.maybeMap(
+                      fetched: (state) => TabBarView(
+                        controller: _model.tabController,
+                        children: [
+                          _RawBody(
+                            jsonData: jsonEncode(state.data),
+                            scrollController: _model.rawScrollController,
+                          ),
+                          const _RenderedBody(),
+                        ],
                       ),
-                      const _RenderedBody(),
-                    ],
+                      loading: (value) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      orElse: () => const SizedBox(),
+                    ),
                   ),
                 ),
               ],

@@ -8,11 +8,14 @@ final class InitializationProgress {
   /// {@macro initialization_progress}
   const InitializationProgress({
     required this.dependencies,
+    required this.repositories,
     required this.environmentStore,
   });
 
   /// Mutable version of dependencies
   final Dependencies dependencies;
+
+  final Repositories repositories;
 
   /// Environment store
   final EnvironmentStore environmentStore;

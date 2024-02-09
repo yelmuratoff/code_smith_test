@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:base_starter/src/feature/home/resource/data/data_repository.dart';
 import 'package:base_starter/src/feature/initialization/model/initialization_progress.dart';
 import 'package:base_starter/src/feature/settings/bloc/settings_bloc.dart';
 import 'package:base_starter/src/feature/settings/data/locale_datasource.dart';
@@ -51,6 +52,10 @@ mixin InitializationSteps {
       );
 
       progress.dependencies.settingsBloc = settingsBloc;
+    },
+    'Form Repository': (progress) async {
+      final formRepository = FormRepositoryImpl();
+      progress.repositories.formRepository = formRepository;
     },
   };
 }

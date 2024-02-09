@@ -11,7 +11,7 @@ final class HttpQuery implements BaseHttp {
     this.useGeneralDio = false,
   });
 
-  static const String baseUrl = 'https://django-app.loca-app.me/api/';
+  static const String baseUrl = 'https://mock.codesmith.space/api/';
 
   ///* ---------------------------------- [HttpQuery] ---------------------------------- */
   /// This class contains custom methods for making http requests.

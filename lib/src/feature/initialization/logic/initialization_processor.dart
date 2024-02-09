@@ -23,6 +23,7 @@ mixin InitializationProcessor {
     final env = factory.getEnvironmentStore();
     final progress = InitializationProgress(
       dependencies: Dependencies(),
+      repositories: Repositories(),
       environmentStore: env,
     );
 
@@ -52,6 +53,7 @@ mixin InitializationProcessor {
     stopwatch.stop();
     final result = InitializationResult(
       dependencies: progress.dependencies,
+      repositories: progress.repositories,
       stepCount: stepCount,
       msSpent: stopwatch.elapsedMilliseconds,
     );
