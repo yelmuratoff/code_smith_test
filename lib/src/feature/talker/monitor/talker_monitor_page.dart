@@ -31,7 +31,7 @@ class TalkerMonitorPage extends StatelessWidget {
           title: const FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              'Talker Monitor',
+              'Logger Monitor',
               style: TextStyle(fontSize: 18),
             ),
           ),

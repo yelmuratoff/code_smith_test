@@ -204,6 +204,7 @@ class _RenderedBody extends StatelessWidget {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(formDataBuilder.booleanForms[index].label),
                     Switch(
