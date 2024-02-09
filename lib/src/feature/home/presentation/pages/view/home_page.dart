@@ -1,123 +1,155 @@
 part of '../home.dart';
 
-/// {@template sample_page}
-/// SamplePage widget
-/// {@endtemplate}
-class HomeScreen extends StatelessWidget {
-  /// {@macro sample_page}
-  const HomeScreen({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  static const String name = "Home";
+  static const String routePath = "/home";
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late final ModelHomePage _model;
+
+  @override
+  void initState() {
+    _model = createModel(context, () => ModelHomePage());
+    _model.tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _model.dispose();
+  }
+
+  final dartMap = {
+    "id": 24,
+    "name": "Manthan Khandale",
+    "score": 7.6,
+    "socials": null,
+    "hobbies": [
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+      "Filmmaking",
+      "Music",
+    ],
+    "isFlutterCool": true,
+  };
 
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: context.theme.colorScheme.background,
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.l10n.appTitle.capitalize(),
-                    style: context.theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onBackground,
+        body: SafeArea(
+          bottom: false,
+          child: ExtendedNestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              SliverAppBar(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'CodeSmith',
+                      style: context.theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: context.theme.colorScheme.onBackground,
+                      ),
                     ),
-                  ),
-                  IconButton.filledTonal(
-                    icon: const Icon(Icons.monitor_heart),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<Widget>(
-                          builder: (_) => TalkerPage(
-                            talker: talker,
-                            theme: TalkerScreenTheme(
-                              backgroundColor:
-                                  context.theme.colorScheme.background,
-                              textColor: context.colors.text,
-                              cardColor: context.colors.card,
-                            ),
-                            appBarLeading: IconButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              icon: const Icon(
-                                Icons.arrow_back,
-                              ),
-                            ),
-                          ),
+                    Row(
+                      children: [
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.settings_rounded),
+                          onPressed: () {
+                            context.pushNamed(SettingsPage.name);
+                          },
+                          splashRadius: 8,
                         ),
-                      );
-                    },
-                    splashRadius: 8,
-                  ),
-                ],
+                        IconButton.filledTonal(
+                          icon: const Icon(Icons.monitor_heart),
+                          onPressed: () {
+                            context.pushNamed(
+                              TalkerPage.name,
+                              extra: {
+                                TalkerPage.paramTalker: talker,
+                                TalkerPage.paramTheme: TalkerScreenTheme(
+                                  backgroundColor:
+                                      context.theme.colorScheme.background,
+                                  textColor: context.colors.text,
+                                  cardColor: context.colors.card,
+                                ),
+                              },
+                            );
+                          },
+                          splashRadius: 8,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+            ],
+            body: Column(
+              children: [
+                TabBar(
+                  controller: _model.tabController,
+                  tabs: [
+                    Tab(
+                      text: context.l10n.raw,
+                    ),
+                    Tab(
+                      text: context.l10n.rendered,
+                    ),
+                  ],
+                ),
+                Flexible(
+                  child: TabBarView(
+                    controller: _model.tabController,
+                    children: [
+                      _RawBody(
+                        jsonData: jsonEncode(dartMap),
+                        scrollController: _model.rawScrollController,
+                      ),
+                      const _RenderedBody(),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SliverList(
-              delegate: SliverChildListDelegate.fixed([
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    context.l10n.locales,
-                    style: context.theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onBackground,
-                    ),
-                  ),
-                ),
-                _LanguagesSelector(Localization.supportedLocales),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    context.l10n.default_themes,
-                    style: context.theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onBackground,
-                    ),
-                  ),
-                ),
-                const _ThemeSelector(Colors.primaries),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 8),
-                  child: Text(
-                    context.l10n.custom_colors,
-                    style: context.theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onBackground,
-                    ),
-                  ),
-                ),
-                const _ThemeSelector(Colors.accents),
-                SwitchListTile(
-                  title: Text(
-                    context.l10n.change_theme,
-                    style: context.theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onBackground,
-                    ),
-                  ),
-                  value: SettingsScope.themeOf(context).isDarkMode,
-                  onChanged: (value) {
-                    SettingsScope.themeOf(context).setThemeMode(
-                      value ? ThemeMode.dark : ThemeMode.light,
-                    );
-                  },
-                ),
-              ]),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Card(
-                      color: context.theme.colorScheme.primaryContainer,
-                      margin: const EdgeInsets.all(8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       );
 }

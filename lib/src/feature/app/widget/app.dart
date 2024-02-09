@@ -1,3 +1,5 @@
+import 'package:base_starter/src/core/router/router.dart';
+import 'package:base_starter/src/core/utils/talker_logger.dart';
 import 'package:base_starter/src/feature/app/widget/material_context.dart';
 import 'package:base_starter/src/feature/initialization/model/dependencies.dart';
 import 'package:base_starter/src/feature/initialization/widget/dependencies_scope.dart';
@@ -10,9 +12,16 @@ import 'package:flutter/material.dart';
 /// Scopes that don't depend on widgets returned by [MaterialApp]
 /// ([Directionality], [MediaQuery], [Localizations]) should be placed here.
 /// {@endtemplate}
-class App extends StatelessWidget {
-  /// {@macro app}
+
+class App extends StatefulWidget {
   const App({required this.result, super.key});
+
+  @override
+  State<App> createState() => _AppState();
+
+  /// The initialization result from the `InitializationProcessor`
+  /// which contains initialized dependencies.
+  final InitializationResult result;
 
   /// Running this function will result in attaching
   /// corresponding [RenderObject] to the root of the tree.
@@ -20,17 +29,31 @@ class App extends StatelessWidget {
     callback?.call();
     runApp(this);
   }
+}
 
-  /// The initialization result from the `InitializationProcessor`
-  /// which contains initialized dependencies.
-  final InitializationResult result;
+class _AppState extends State<App> {
+  final _router = createRouter();
+
+  @override
+  void initState() {
+    _router.routerDelegate.addListener(() {
+      talker.logTyped(
+        RouteLog(
+          _router.routerDelegate.currentConfiguration.last.matchedLocation,
+        ),
+      );
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => DependenciesScope(
-        dependencies: result.dependencies,
+        dependencies: widget.result.dependencies,
         child: SettingsScope(
-          settingsBloc: result.dependencies.settingsBloc,
-          child: const MaterialContext(),
+          settingsBloc: widget.result.dependencies.settingsBloc,
+          child: MaterialContext(
+            routerConfig: _router,
+          ),
         ),
       );
 }
