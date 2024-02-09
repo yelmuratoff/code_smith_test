@@ -36,6 +36,21 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: context.theme.colorScheme.background,
+        floatingActionButton: FloatingActionButton.extended(
+          elevation: 1,
+          onPressed: () {
+            _model.formDataBuilder.clear();
+            provideOnce<HomeBloc>(context).add(const HomeEvent.refresh());
+          },
+          label: Text(
+            context.l10n.refresh,
+            style: context.theme.textTheme.bodyMedium?.copyWith(
+              color: context.colors.text,
+            ),
+          ),
+          icon: Icon(Icons.refresh_rounded, color: context.colors.text),
+          backgroundColor: context.theme.colorScheme.primaryContainer,
+        ),
         body: SafeArea(
           bottom: false,
           child: ExtendedNestedScrollView(
@@ -88,6 +103,10 @@ class _HomePageState extends State<HomePage>
               children: [
                 TabBar(
                   controller: _model.tabController,
+                  splashBorderRadius: BorderRadius.circular(8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
                   tabs: [
                     Tab(
                       text: context.l10n.raw,
@@ -98,7 +117,16 @@ class _HomePageState extends State<HomePage>
                   ],
                 ),
                 Flexible(
-                  child: BlocBuilder<HomeBloc, HomeState>(
+                  child: BlocConsumer<HomeBloc, HomeState>(
+                    listener: (context, state) => state.maybeMap(
+                      fetched: (state) {
+                        for (final field in state.forms.fields) {
+                          _addToFormList(field);
+                        }
+                        return null;
+                      },
+                      orElse: () => null,
+                    ),
                     builder: (context, state) => state.maybeMap(
                       fetched: (state) => TabBarView(
                         controller: _model.tabController,
@@ -107,8 +135,17 @@ class _HomePageState extends State<HomePage>
                             jsonData: jsonEncode(state.data),
                             scrollController: _model.rawScrollController,
                           ),
-                          const _RenderedBody(),
+                          _RenderedBody(
+                            form: state.forms,
+                            formDataBuilder: _model.formDataBuilder,
+                            onChanged: () {
+                              setState(() {});
+                            },
+                          ),
                         ],
+                      ),
+                      failure: (state) => FailureBody(
+                        message: state.cause.toString(),
                       ),
                       loading: (value) => const Center(
                         child: CircularProgressIndicator(),
@@ -122,4 +159,42 @@ class _HomePageState extends State<HomePage>
           ),
         ),
       );
+
+  void _addToFormList(FormItemModel field) {
+    final controller = TextEditingController();
+    final formBuildType = FormBuildType(
+      id: field.id,
+      controller: controller,
+      type: field.type,
+      label: field.label,
+      isRequired: field.isRequired,
+    );
+
+    final formMap = {
+      FormTypeKeys.text: _model.formDataBuilder.textForms,
+      FormTypeKeys.textarea: _model.formDataBuilder.textAreaForms,
+      FormTypeKeys.email: _model.formDataBuilder.emailForms,
+      FormTypeKeys.password: _model.formDataBuilder.passwordForms,
+      FormTypeKeys.integer: _model.formDataBuilder.integerForms,
+      FormTypeKeys.decimal: _model.formDataBuilder.decimalForms,
+      FormTypeKeys.date: _model.formDataBuilder.dateForms,
+      FormTypeKeys.dateTime: _model.formDataBuilder.dateTimeForms,
+      FormTypeKeys.boolean: _model.formDataBuilder.booleanForms,
+    };
+
+    formMap[field.type]?.add(formBuildType);
+  }
+}
+
+Widget getFormWidget(FormItemModel item) {
+  switch (item.type) {
+    case FormTypeKeys.text:
+      return TextFormField(
+        decoration: InputDecoration(
+          labelText: item.label,
+        ),
+      );
+    default:
+      return const SizedBox();
+  }
 }
