@@ -1,0 +1,129 @@
+{
+   "@@locale": "en",
+   "appTitle": "base_starter",
+   "custom_colors": "Custom Colors",
+   "default_themes": "Default Themes",
+   "locales": "Locales",
+   "change_theme": "Change theme",
+   "talker_type_debug": "Verbose & debug",
+   "talker_type_debug_count": "Verbose and debug logs count: {text}",
+   "@talker_type_debug_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_good": "Good",
+   "talker_type_good_count": "Good logs count: {text}",
+   "@talker_type_good_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_info": "Info",
+   "talker_type_info_count": "Info logs count: {text}",
+   "@talker_type_info_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_warnings": "Warnings",
+   "talker_type_warnings_count": "Warning logs count: {text}",
+   "@talker_type_warnings_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_exceptions": "Exceptions",
+   "talker_type_exceptions_count": "Exception logs count: {text}",
+   "@talker_type_exceptions_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_errors": "Errors",
+   "talker_type_errors_count": "Error logs count: {text}",
+   "@talker_type_errors_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_http": "HTTP requests",
+   "talker_http_requests_count": "HTTP request logs count: {text}",
+   "@talker_http_requests_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_http_responses_count": "HTTP response logs count: {text}",
+   "@talker_http_responses_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_http_failues_count": "HTTP failure logs count: {text}",
+   "@talker_http_failues_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_bloc": "BLoC",
+   "talker_bloc_transition_count": "BLoC transitions count: {text}",
+   "@talker_bloc_transition_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_events_count": "BLoC events count: {text}",
+   "@talker_bloc_events_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_close_count": "BLoC closes count: {text}",
+   "@talker_bloc_close_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_create_count": "BLoC creates count: {text}",
+   "@talker_bloc_create_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "error": "Error",
+   "statusCode": "Status code",
+   "url": "Url",
+   "method": "Method",
+   "noValues": "No values",
+   "showMore": "Show more",
+   "idleRefresh": "Pull down to refresh",
+   "letForUpdate": "Release to download",
+   "loading": "Loading",
+   "updated": "Updated",
+   "noDataToDownload": "There is no data to download",
+   "lastUpdate": "Last updated: {text}",
+   "@lastUpdate": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "fieldIsRequired": "Field is required",
+   "requestSuccess": "The request was executed successfully",
+   "nothingFound": "Nothing was found for this query",
+   "actions": "Actions",
+   "reverse_logs": "Reverse logs",
+   "copy_all_logs": "Copy all logs",
+   "collapse_logs": "Collapse logs",
+   "expand_logs": "Expand logs",
+   "clean_history": "Clean history",
+   "share_logs_file": "Share logs file",
+   "log_item_copied": "Log item is copied in clipboard",
+   "basic_settings": "Basic settings",
+   "enabled": "Enabled",
+   "use_console_logs": "Use console logs",
+   "use_history": "Use history",
+   "settings": "History",
+   "search": "Search",
+   "all_logs_copied": "All logs copied in buffer"
+}

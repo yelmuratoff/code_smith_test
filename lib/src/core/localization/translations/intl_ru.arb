@@ -1,0 +1,129 @@
+{
+   "@@locale": "ru",
+   "appTitle": "base_starter",
+   "custom_colors": "Кастомные цветы",
+   "default_themes": "Стандартные темы",
+   "locales": "Языки",
+   "change_theme": "Изменить тему",
+   "talker_type_debug": "Отладка",
+   "talker_type_debug_count": "Количество отладочных логов: {text}",
+   "@talker_type_debug_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_good": "Хорошие",
+   "talker_type_good_count": "Количество хороших логов: {text}",
+   "@talker_type_good_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_info": "Информативные",
+   "talker_type_info_count": "Количество информативных логов: {text}",
+   "@talker_type_info_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_warnings": "Предупреждения",
+   "talker_type_warnings_count": "Количество предупреждающих логов: {text}",
+   "@talker_type_warnings_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_exceptions": "Исключения",
+   "talker_type_exceptions_count": "Количество логов об исключениях: {text}",
+   "@talker_type_exceptions_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_errors": "Ошибки",
+   "talker_type_errors_count": "Количество логов об ошибках: {text}",
+   "@talker_type_errors_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_http": "HTTP запросы",
+   "talker_http_requests_count": "Количество HTTP запросов: {text}",
+   "@talker_http_requests_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_http_responses_count": "Количество HTTP ответов: {text}",
+   "@talker_http_responses_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_http_failues_count": "Количество HTTP ошибок: {text}",
+   "@talker_http_failues_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_type_bloc": "BLoC",
+   "talker_bloc_transition_count": "Количество BLoC transition: {text}",
+   "@talker_bloc_transition_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_events_count": "Количество BLoC ивентов: {text}",
+   "@talker_bloc_events_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_close_count": "Количество BLoC закрытий: {text}",
+   "@talker_bloc_close_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "talker_bloc_create_count": "Количество BLoC созданий: {text}",
+   "@talker_bloc_create_count": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "error": "Ошибка",
+   "statusCode": "Код ответа",
+   "url": "Ссылка",
+   "method": "Метод отправки",
+   "noValues": "Нет значений",
+   "showMore": "Подробнее",
+   "idleRefresh": "Потяните вниз, чтобы обновить",
+   "letForUpdate": "Отпустите для загрузки",
+   "loading": "Загрузка",
+   "updated": "Обновлено",
+   "noDataToDownload": "Нет данных для загрузки",
+   "lastUpdate": "Последний раз обновлялось: {text}",
+   "@lastUpdate": {
+      "placeholders": {
+         "text": {}
+      }
+   },
+   "fieldIsRequired": "Это поле обязательно",
+   "requestSuccess": "Запрос был выполнен успешно",
+   "nothingFound": "Ничего не найдено по этому запросу",
+   "actions": "Действия",
+   "reverse_logs": "Изменить порядок",
+   "copy_all_logs": "Скопировать все логи",
+   "collapse_logs": "Свернуть логи",
+   "expand_logs": "Развернуть логи",
+   "clean_history": "Очистить историю",
+   "share_logs_file": "Поделиться файлом логов",
+   "log_item_copied": "Элемент журнала скопирован в буфер обмена",
+   "basic_settings": "Базовые настройки",
+   "enabled": "Включено",
+   "use_console_logs": "Использовать логи в консоли",
+   "use_history": "Использовать историю",
+   "settings": "Настройки",
+   "search": "Поиск",
+   "all_logs_copied": "Все логи сохранены в буфер обмена"
+}
