@@ -1,6 +1,10 @@
 # CodeSmith test project
 
-Test project for CodeSmith company
+Test project for CodeSmith company. For build apk: use:
+```bash
+1. chmod a+x bash/build_apk.sh
+2. ./bash/build_apk.sh
+```
 
 ## Screenshots:
 

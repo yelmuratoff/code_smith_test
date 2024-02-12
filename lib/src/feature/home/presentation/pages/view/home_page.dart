@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage>
         floatingActionButton: FloatingActionButton.extended(
           elevation: 1,
           onPressed: () {
-            _model.formDataBuilder.clear();
+            _model.listOfFormBuild.clear();
             provideOnce<HomeBloc>(context).add(const HomeEvent.refresh());
           },
           label: Text(
@@ -120,8 +120,11 @@ class _HomePageState extends State<HomePage>
                   child: BlocConsumer<HomeBloc, HomeState>(
                     listener: (context, state) => state.maybeMap(
                       fetched: (state) {
+                        _model.listOfFormBuild.clear();
                         for (final field in state.forms.fields) {
-                          _addToFormList(field);
+                          _model.listOfFormBuild.add(
+                            getFormBuildType(field),
+                          );
                         }
                         return null;
                       },
@@ -137,10 +140,10 @@ class _HomePageState extends State<HomePage>
                           ),
                           _RenderedBody(
                             form: state.forms,
-                            formDataBuilder: _model.formDataBuilder,
                             onChanged: () {
                               setState(() {});
                             },
+                            listOfForms: _model.listOfFormBuild,
                           ),
                         ],
                       ),
@@ -160,41 +163,32 @@ class _HomePageState extends State<HomePage>
         ),
       );
 
-  void _addToFormList(FormItemModel field) {
-    final controller = TextEditingController();
-    final formBuildType = FormBuildType(
-      id: field.id,
-      controller: controller,
-      type: field.type,
-      label: field.label,
-      isRequired: field.isRequired,
-    );
+  // void _addToFormList(FormItemModel field) {
+  //   final formBuildType = getFormBuildType(field);
 
-    final formMap = {
-      FormTypeKeys.text: _model.formDataBuilder.textForms,
-      FormTypeKeys.textarea: _model.formDataBuilder.textAreaForms,
-      FormTypeKeys.email: _model.formDataBuilder.emailForms,
-      FormTypeKeys.password: _model.formDataBuilder.passwordForms,
-      FormTypeKeys.integer: _model.formDataBuilder.integerForms,
-      FormTypeKeys.decimal: _model.formDataBuilder.decimalForms,
-      FormTypeKeys.date: _model.formDataBuilder.dateForms,
-      FormTypeKeys.dateTime: _model.formDataBuilder.dateTimeForms,
-      FormTypeKeys.boolean: _model.formDataBuilder.booleanForms,
-    };
+  //   final formMap = {
+  //     FormTypeKeys.text: _model.formDataBuilder.textForms,
+  //     FormTypeKeys.textarea: _model.formDataBuilder.textAreaForms,
+  //     FormTypeKeys.email: _model.formDataBuilder.emailForms,
+  //     FormTypeKeys.password: _model.formDataBuilder.passwordForms,
+  //     FormTypeKeys.integer: _model.formDataBuilder.integerForms,
+  //     FormTypeKeys.decimal: _model.formDataBuilder.decimalForms,
+  //     FormTypeKeys.date: _model.formDataBuilder.dateForms,
+  //     FormTypeKeys.dateTime: _model.formDataBuilder.dateTimeForms,
+  //     FormTypeKeys.boolean: _model.formDataBuilder.booleanForms,
+  //   };
 
-    formMap[field.type]?.add(formBuildType);
-  }
+  //   formMap[field.type]?.add(formBuildType);
+  // }
 }
 
-Widget getFormWidget(FormItemModel item) {
-  switch (item.type) {
-    case FormTypeKeys.text:
-      return TextFormField(
-        decoration: InputDecoration(
-          labelText: item.label,
-        ),
-      );
-    default:
-      return const SizedBox();
-  }
+FormBuildType getFormBuildType(FormItemModel field) {
+  final controller = TextEditingController();
+  return FormBuildType(
+    id: field.id,
+    controller: controller,
+    type: field.type,
+    label: field.label,
+    isRequired: field.isRequired,
+  );
 }

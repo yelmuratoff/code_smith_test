@@ -27,6 +27,7 @@ class OutlinedTextfield extends StatelessWidget {
   final double? radius;
   final bool autofocusEnabled;
   final Function()? onEditingComplete;
+  final bool isRequired;
 
   // Constructor method to initialize the above input parameters.
   const OutlinedTextfield({
@@ -51,6 +52,7 @@ class OutlinedTextfield extends StatelessWidget {
     this.radius,
     this.autofocusEnabled = false,
     this.onEditingComplete,
+    this.isRequired = false,
   });
 
   // This is a FocusNode variable which can be used to control the focus on the text field if needed.
@@ -70,6 +72,7 @@ class OutlinedTextfield extends StatelessWidget {
         validator: validator,
         inputFormatters: inputFormatters,
         textInputAction: textInputAction,
+
         onTapOutside: (event) {
           FocusManager.instance.primaryFocus?.unfocus();
         },
@@ -85,8 +88,26 @@ class OutlinedTextfield extends StatelessWidget {
         // These properties define the look and feel of the text field.
         decoration: InputDecoration(
           hintText: hintText,
+          label: RichText(
+            text: TextSpan(
+              text: labelText ?? hintText,
+              style: TextStyle(
+                color: context.colors.text,
+                fontSize: 16,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: isRequired ? " *" : "",
+                  style: TextStyle(
+                    color: context.colors.error,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
           hintTextDirection: TextDirection.ltr,
-          labelText: (labelText != "") ? labelText ?? hintText : null,
+          labelText: (labelText != "") ? labelText : null,
           // hintStyle: AppTextStyle.bodyMedium400(context).copyWith(
           //   color: AppPalette.gray600,
           // ),

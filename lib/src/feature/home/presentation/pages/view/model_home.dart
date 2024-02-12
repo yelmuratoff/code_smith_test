@@ -6,17 +6,19 @@ final class ModelHomePage extends PageModel {
   late final TabController tabController;
   late final ScrollController rawScrollController;
   late final ScrollController renderedScrollController;
-  FormDataBuilder formDataBuilder = FormDataBuilder(
-    textForms: [],
-    textAreaForms: [],
-    emailForms: [],
-    passwordForms: [],
-    integerForms: [],
-    decimalForms: [],
-    dateForms: [],
-    dateTimeForms: [],
-    booleanForms: [],
-  );
+  // FormDataBuilder formDataBuilder = FormDataBuilder(
+  //   textForms: [],
+  //   textAreaForms: [],
+  //   emailForms: [],
+  //   passwordForms: [],
+  //   integerForms: [],
+  //   decimalForms: [],
+  //   dateForms: [],
+  //   dateTimeForms: [],
+  //   booleanForms: [],
+  // );
+  List<FormBuildType> listOfFormBuild = [];
+
   @override
   void initState(BuildContext context) {
     rawScrollController = ScrollController();
@@ -28,6 +30,6 @@ final class ModelHomePage extends PageModel {
     tabController.dispose();
     rawScrollController.dispose();
     renderedScrollController.dispose();
-    formDataBuilder.clear();
+    listOfFormBuild.clear();
   }
 }
